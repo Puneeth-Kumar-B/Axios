@@ -17,7 +17,17 @@ const couponSchema = new Schema({
 
     status: { type: Boolean, default: false },
 
-    uploadFile: { type: String }
+    uploadFile: { type: String },
+    
+    // userId: { type: String },
+
+    userId: { type: Schema.Types.ObjectId, ref: 'user' },
+
+    name: { type: String },
+
+    phoneNo: { type: Number },
+
+    emailId: { type: String }
 });
 
 module.exports = mongoose.model('coupons', couponSchema);
