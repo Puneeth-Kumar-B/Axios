@@ -134,6 +134,38 @@ const getCoupon = async(req, res) => {
 }
 
 
+const getCouponByUserId = async(req, res) => {
+    try {
+        const { userId } = req.params
+        let response = await axios.get(`${Url}/${userId}`)
+        const get_coupon = await coupons.find({ userId })
+        return res.status(200).json({ coupon: get_coupon, data: response.data })
+
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+
+const getCouponByUserId2 = async(req, res) => {
+    try {
+        const { userId } = req.params
+        let get_coupon = await coupons.find({ userId })
+        let response = await axios.get(`${SampleUrl}/${userId}`)
+        for (let i = 0; i < get_coupon.length; i++) {
+            if (get_coupon[i]) {
+                get_coupon[i].name = response.data.user_name
+                get_coupon[i].phoneNo = response.data.phone_no
+                get_coupon[i].emailId = response.data.email
+            }
+        }
+        res.status(200).send({ "Coupons": get_coupon })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+
 const searchCoupon = async(req, res) => {
     const { search, status } = req.query
 
@@ -172,4 +204,4 @@ const searchCoupon = async(req, res) => {
 
 
 
-module.exports = { createCoupon, getCoupon, updateCoupon, deleteCoupon, searchCoupon }
+module.exports = { createCoupon, getCoupon, updateCoupon, deleteCoupon, searchCoupon, getCouponByUserId, getCouponByUserId2 }
