@@ -20,7 +20,7 @@ router.get('/', async(req, res) => {
             }
         }
 
-        allCoupons.couponData = await coupons.find().limit(limit).skip(start).exec()
+        allCoupons.couponData = await coupons.find().limit(limit).skip(start).populate('userId', 'user_name phone_no email').exec()
 
         if (end < await coupons.countDocuments().exec()) {
             allCoupons.next = {
@@ -37,6 +37,8 @@ router.get('/', async(req, res) => {
 router.post('/create', Controller.createCoupon)
 router.put("/update/:id", Controller.updateCoupon)
 router.get('/search', Controller.searchCoupon)
+router.get('/:userId', Controller.getCouponByUserId)
+router.get('/get/:userId', Controller.getCouponByUserId2)
 router.get('/:id', Controller.getCoupon)
 router.delete('/delete/:id', Controller.deleteCoupon)
 
