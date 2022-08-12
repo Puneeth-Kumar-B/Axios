@@ -6,6 +6,13 @@ const csvtojson = require("csvtojson")
 const XLSX = require('xlsx')
 const fastcsv = require("fast-csv")
 const excelToJson = require('convert-excel-to-json')
+const axios = require('axios');
+const user = require('../model/user');
+// const { aggregate } = require('../model/coupons');
+
+let SampleUrl = 'http://localhost:4000/user'
+
+let Url = 'http://localhost:8000/user'
 
 
 //COUPON CREATION
